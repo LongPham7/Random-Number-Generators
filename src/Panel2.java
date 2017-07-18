@@ -1,5 +1,3 @@
-package RNGs2;
-
 import javax.swing.*;
 
 import java.awt.*;

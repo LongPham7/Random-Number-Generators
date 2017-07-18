@@ -1,10 +1,3 @@
-package RNGs2;
-/*
- * Title: Comparison of Two Random Number Generators
- * @author Pham Thanh Long
- * Date: February 18, 2014
- */
-
 import javax.swing.*;
 
 import java.awt.*;

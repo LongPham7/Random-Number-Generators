@@ -1,5 +1,3 @@
-package RNGs2;
-
 /* Title:       Graph of Two Consecutive Terms in Pseudo Random Numbers Sequence
  *                                                              @author Pham.LongThanh
  *                                                             Date: December 10, 2013

@@ -1,5 +1,3 @@
-package RNGs2;
-
 public class LehmerRNG 
 {
 	private int length;

@@ -1,5 +1,3 @@
-package RNGs2;
-
 public class JavaRNG
 {
 	private int k;
