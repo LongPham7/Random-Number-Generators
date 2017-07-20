@@ -3,6 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame2 extends JFrame {
+
+	// Default serial version UID
+	private static final long serialVersionUID = 1L;
+
 	private int[] inputInt;
 	private double[] inputDou;
 	private int radius;

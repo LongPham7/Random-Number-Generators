@@ -4,8 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class Panel1 extends Panel
-{
+public class Panel1 extends Panel {
+
+	// Default serial version UID
+	private static final long serialVersionUID = 1L;
+
 	private JLabel equation;
 	private JLabel label1;
 	private JLabel label2;
@@ -13,40 +16,32 @@ public class Panel1 extends Panel
 	private JLabel label4;
 	private JLabel label5;
 	private JLabel label6;
-	private JLabel result1;
-	
+	private JLabel result;
+
 	private JButton button1;
-	private JButton button3;
-	
+	private JButton button2;
+
 	private JTextField field1;
 	private JTextField field2;
 	private JTextField field3;
-	
-	private JComboBox combo1;
-	
+
+	private JComboBox combo;
+
 	private LehmerRNG lehmer;
-	
+
 	/*
-	 * Array that stores a choice set of three constants in Lehmer's
-	 * pseudo RNG in the order of {m,a,c}
+	 * Array that stores a choice set of three constants in Lehmer's pseudo RNG in
+	 * the order of {m,a,c}
 	 */
-	private final String[] choiceSet = {"{6075, 106, 1283}","{7875, 211, 1663}",
-			"{7875, 421, 1663}","{11979, 430, 2513}","{6655, 936, 1399}", 
-			"{6075, 1366, 1283}","{53125, 171, 11213}", "{11979, 859, 2531}",
-			"{29282, 419, 6173}", "{14406, 967, 3041}", "{134456, 141, 28411}",
-			"{31104, 625, 6571}", "{14000, 1541, 2957}", "{12960, 1741, 2731}",
-			"{21870, 1291, 4621}", "{139968, 205, 29573}", "{81000, 421, 17117}",
-			"{29282, 1255, 6173}", "{134456, 281, 28411}","{86436, 1093, 18257}",
-			"{259200, 421, 54773}"};
-	
-	public Panel1()
-	{
-		super();
-	}
-	
-	public void go()
-	{
-		/*Image of the formula of Lehmer's pseudo RNG*/
+	private final String[] choiceSet = { "{6075, 106, 1283}", "{7875, 211, 1663}", "{7875, 421, 1663}",
+			"{11979, 430, 2513}", "{6655, 936, 1399}", "{6075, 1366, 1283}", "{53125, 171, 11213}",
+			"{11979, 859, 2531}", "{29282, 419, 6173}", "{14406, 967, 3041}", "{134456, 141, 28411}",
+			"{31104, 625, 6571}", "{14000, 1541, 2957}", "{12960, 1741, 2731}", "{21870, 1291, 4621}",
+			"{139968, 205, 29573}", "{81000, 421, 17117}", "{29282, 1255, 6173}", "{134456, 281, 28411}",
+			"{86436, 1093, 18257}", "{259200, 421, 54773}" };
+
+	public void activate() {
+		/* Image of the formula of Lehmer's pseudo RNG */
 		ImageIcon image1 = new ImageIcon("Equation");
 		equation = new JLabel();
 		equation.setIcon(image1);
@@ -56,148 +51,136 @@ public class Panel1 extends Panel
 		label4 = new JLabel("Seed: ");
 		label5 = new JLabel("Number of terms: ");
 		label6 = new JLabel("Output: ");
-		result1 = new JLabel("Result: ");
-		
+		result = new JLabel("Result: ");
+
 		button1 = new JButton("Test with unit square");
-		button3 = new JButton("Draw a graph");
-		
+		button2 = new JButton("Draw a graph");
+
 		field1 = new JTextField(15);
 		field2 = new JTextField(15);
 		field3 = new JTextField(15);
-		
-		combo1 = new JComboBox<String>(choiceSet);
-		
+
+		combo = new JComboBox<String>(choiceSet);
+
 		this.setLayout(new GridBagLayout());
-		panelAddComponent(label1,  0,0,2);
-		panelAddComponent(label2,0,1,1);
-		panelAddComponent(equation,0,2,2);
-	    panelAddComponent(label3,0,3,1);
-	    panelAddComponent(combo1,1,3,1);
-	    panelAddComponent(label4,0,4,1);
-	    panelAddComponent(field1,1,4,1);
-	    panelAddComponent(label5,0,5,1);
-	    panelAddComponent(field2,1,5,1);
-	    panelAddComponent(label6,0,6,1);
-	    panelAddComponent(field3,1,6,1);
-	    panelAddComponent(button1,0,7,1);
-	    panelAddComponent(result1,1,7,1);
-	    panelAddComponent(button3,0,8,1);
-	    
-	    button1.addActionListener(new button1Listener());
-	    button3.addActionListener(new button3Listener());
+		panelAddComponent(label1, 0, 0, 2);
+		panelAddComponent(label2, 0, 1, 1);
+		panelAddComponent(equation, 0, 2, 2);
+		panelAddComponent(label3, 0, 3, 1);
+		panelAddComponent(combo, 1, 3, 1);
+		panelAddComponent(label4, 0, 4, 1);
+		panelAddComponent(field1, 1, 4, 1);
+		panelAddComponent(label5, 0, 5, 1);
+		panelAddComponent(field2, 1, 5, 1);
+		panelAddComponent(label6, 0, 6, 1);
+		panelAddComponent(field3, 1, 6, 1);
+		panelAddComponent(button1, 0, 7, 1);
+		panelAddComponent(result, 1, 7, 1);
+		panelAddComponent(button2, 0, 8, 1);
+
+		button1.addActionListener(new button1Listener());
+		button2.addActionListener(new button2Listener());
 	}
-    
-    /*
-     * This inner class implements an ActionListener of a button which displays
-     * the result of unit-circle test on Lehmer's pseudo RNG.
-     */
-    class button1Listener implements ActionListener
-    {
-    	public void actionPerformed(ActionEvent event)
-    	{
-    	    try
-    		{
-    			displayResult();
-    		}
-    		catch(Exception ex)
-    		{
-    			JOptionPane.showMessageDialog(null,"There is an error.","Error Message", JOptionPane.ERROR_MESSAGE);
-    		}
-    	}
-    }
-    
-    protected void displayResult()
-    {
-    	int k = Integer.parseInt(field2.getText());
-    	int seed = Integer.parseInt(field1.getText());
-    	int[] coefficients = readInput((String)combo1.getSelectedItem());
-    	int m = coefficients[0];
-    	int a = coefficients[1];
-    	int c = coefficients[2];
-    	
-		lehmer = new LehmerRNG(k,seed,m,a,c);
+
+	/*
+	 * This inner class implements an ActionListener of a button which displays the
+	 * result of unit-circle test on Lehmer's pseudo RNG.
+	 */
+	class button1Listener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			try {
+				displayResult();
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "There is an error.", "Error Message", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+	protected void displayResult() {
+		int k = Integer.parseInt(field2.getText());
+		int seed = Integer.parseInt(field1.getText());
+		int[] coefficients = readInput((String) combo.getSelectedItem());
+		int m = coefficients[0];
+		int a = coefficients[1];
+		int c = coefficients[2];
+
+		lehmer = new LehmerRNG(k, seed, m, a, c);
 		int[] list1 = lehmer.output();
 		double Ratio = lehmer.ratio(list1);
-		result1.setText("Result: "+4*Ratio);
+		result.setText("Result: " + 4 * Ratio);
 		field3.setText(Arrays.toString(list1));
-    }
-    
-    /*
-     * This inner class implements an ActionListener of a button that creates a
-     * new window and that displays a graph of Lehmer's pseudo RNG on the window.
-     */
-    class button3Listener implements ActionListener
-    {
-    	public void actionPerformed(ActionEvent event)
-    	{
-    		try
-    		{
-    			displayGraph();
-    		}
-    		catch(Exception ex)
-    		{
-    			JOptionPane.showMessageDialog(null,"There is an error.","Error Message", JOptionPane.ERROR_MESSAGE);
-    		}
+	}
 
-    	}
-    }
-    
-    protected void displayGraph()
-    {
-    	int k = Integer.parseInt(field2.getText());
-    	int seed = Integer.parseInt(field1.getText());
-    	int[] coefficients = readInput((String)combo1.getSelectedItem());
-    	int m = coefficients[0];
-    	int a = coefficients[1];
-    	int c = coefficients[2];
-    	
-		lehmer = new LehmerRNG(k,seed,m,a,c);
+	/*
+	 * This inner class implements an ActionListener of a button that creates a new
+	 * window and that displays a graph of Lehmer's pseudo RNG on the window.
+	 */
+	class button2Listener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			try {
+				displayGraph();
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "There is an error.", "Error Message", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+	protected void displayGraph() {
+		int k = Integer.parseInt(field2.getText());
+		int seed = Integer.parseInt(field1.getText());
+		int[] coefficients = readInput((String) combo.getSelectedItem());
+		int m = coefficients[0];
+		int a = coefficients[1];
+		int c = coefficients[2];
+
+		lehmer = new LehmerRNG(k, seed, m, a, c);
 		int[] list1 = lehmer.output();
-		
-    	Frame2 frame2 = new Frame2(list1,m);
-    	frame2.go2();
+
+		Frame2 frame2 = new Frame2(list1, m);
+		frame2.go2();
 		frame2.setVisible(true);
-    }
-    
-    /*
-     * This method extracts three constants in the formula of Lehmer's pseudo RNG from
-     * a string in the array "choiceSet", and stores the numbers in a new array.
-     * @param   n:  string to be extracted
-     * @return  array that stores three constants in the formula of Lehmer's pseudo RNG
-     */
-    private int[] readInput(String n)
-    {
-    	int[] result = new int[3];
-    	
-    	/*This variable stores the starting index of a number to be extracted.*/
-    	int start = 1;  
-    	
-    	/*This variable stores the number of constants that have already been extracted*/
-    	int memory = 0;
-    	
-    	/*
-    	 * This loop traverses the string of input, and extracts three constants required
-    	 * for the Lehmer's pseudo RNG.
-    	 */
-    	for(int i=0;i<n.length();i++)
-    	{
-    		/*If either ',' or '}' is found, extract the substring.*/
-    		if(n.charAt(i)==',' || n.charAt(i)=='}')
-    		{
-    			result[memory] = Integer.parseInt(n.substring(start,i));
-    			memory++;
-    			
-    			/*The next starting index is behind the previous one by two characters*/
-    			start = i+2;
-    		}
-    		
-    		/*If all three constants are extracted, break the loop.*/
-    		if(memory==3)
-    		{
-    			break;
-    		}
-    	}
-    	return result;
-    }
-    
+	}
+
+	/*
+	 * This method extracts three constants in the formula of Lehmer's pseudo RNG
+	 * from a string in the array "choiceSet", and stores the numbers in a new
+	 * array.
+	 * 
+	 * @param n: string to be extracted
+	 * 
+	 * @return array that stores three constants in the formula of Lehmer's pseudo
+	 * RNG
+	 */
+	private int[] readInput(String n) {
+		int[] result = new int[3];
+
+		/* This variable stores the starting index of a number to be extracted. */
+		int start = 1;
+
+		/*
+		 * This variable stores the number of constants that have already been extracted
+		 */
+		int memory = 0;
+
+		/*
+		 * This loop traverses the string of input, and extracts three constants
+		 * required for the Lehmer's pseudo RNG.
+		 */
+		for (int i = 0; i < n.length(); i++) {
+			/* If either ',' or '}' is found, extract the substring. */
+			if (n.charAt(i) == ',' || n.charAt(i) == '}') {
+				result[memory] = Integer.parseInt(n.substring(start, i));
+				memory++;
+
+				/* The next starting index is behind the previous one by two characters */
+				start = i + 2;
+			}
+
+			/* If all three constants are extracted, break the loop. */
+			if (memory == 3) {
+				break;
+			}
+		}
+		return result;
+	}
 }
