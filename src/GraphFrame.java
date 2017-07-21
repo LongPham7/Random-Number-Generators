@@ -2,7 +2,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class Frame2 extends JFrame {
+public class GraphFrame extends JFrame {
 
 	// Default serial version UID
 	private static final long serialVersionUID = 1L;
@@ -11,13 +11,13 @@ public class Frame2 extends JFrame {
 	private double[] inputDou;
 	private int radius;
 
-	public Frame2(int[] n, int r) {
+	public GraphFrame(int[] n, int r) {
 		super("Graph of Lehmer's RNG");
 		inputInt = n;
 		radius = r;
 	}
 
-	public Frame2(double[] n) {
+	public GraphFrame(double[] n) {
 		super("Graph of Lehmer's RNG");
 		inputDou = n;
 		radius = 1;
@@ -28,8 +28,8 @@ public class Frame2 extends JFrame {
 	 * which is created after the user clicks a button. This method then adds
 	 * widgets to the window.
 	 */
-	public void go2() {
-		Graph graph = new Graph();
+	public void activate() {
+		GraphPanel graph = new GraphPanel();
 		if (radius == 1) {
 			graph.setSampleDou(inputDou);
 		} else {

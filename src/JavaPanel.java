@@ -88,8 +88,8 @@ public class JavaPanel extends RNGPanel {
 		JavaRNG rng = new JavaRNG(k);
 		double[] list2 = rng.output();
 
-		Frame2 frame2 = new Frame2(list2);
-		frame2.go2();
-		frame2.setVisible(true);
+		GraphFrame graph = new GraphFrame(list2);
+		graph.activate();
+		graph.setVisible(true);
 	}
 }

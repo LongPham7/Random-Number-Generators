@@ -18,7 +18,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class Graph extends JPanel {
+public class GraphPanel extends JPanel {
 	
 	// Default serial version UID
 	private static final long serialVersionUID = 1L;

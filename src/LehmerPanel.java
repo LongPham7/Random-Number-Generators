@@ -9,7 +9,6 @@ public class LehmerPanel extends RNGPanel {
 	// Default serial version UID
 	private static final long serialVersionUID = 1L;
 
-	private JLabel equation;
 	private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
@@ -41,10 +40,6 @@ public class LehmerPanel extends RNGPanel {
 			{ 86436, 1093, 18257 }, { 259200, 421, 54773 } };
 
 	public void activate() {
-		/* Image of the formula of Lehmer's pseudo RNG */
-		ImageIcon image1 = new ImageIcon("Equation");
-		equation = new JLabel();
-		equation.setIcon(image1);
 		label1 = new JLabel("Various Random Number Generators");
 		label2 = new JLabel("Lehmer's RNG");
 		label3 = new JLabel("{m, a, c}: ");
@@ -82,18 +77,17 @@ public class LehmerPanel extends RNGPanel {
 		this.setLayout(new GridBagLayout());
 		panelAddComponent(label1, 0, 0, 2);
 		panelAddComponent(label2, 0, 1, 1);
-		panelAddComponent(equation, 0, 2, 2);
-		panelAddComponent(label3, 0, 3, 1);
-		panelAddComponent(combo, 1, 3, 1);
-		panelAddComponent(label4, 0, 4, 1);
-		panelAddComponent(field1, 1, 4, 1);
-		panelAddComponent(label5, 0, 5, 1);
-		panelAddComponent(field2, 1, 5, 1);
-		panelAddComponent(label6, 0, 6, 1);
-		panelAddComponent(field3, 1, 6, 1);
-		panelAddComponent(button1, 0, 7, 1);
-		panelAddComponent(result, 1, 7, 1);
-		panelAddComponent(button2, 0, 8, 1);
+		panelAddComponent(label3, 0, 2, 1);
+		panelAddComponent(combo, 1, 2, 1);
+		panelAddComponent(label4, 0, 3, 1);
+		panelAddComponent(field1, 1, 3, 1);
+		panelAddComponent(label5, 0, 4, 1);
+		panelAddComponent(field2, 1, 4, 1);
+		panelAddComponent(label6, 0, 5, 1);
+		panelAddComponent(field3, 1, 5, 1);
+		panelAddComponent(button1, 0, 6, 1);
+		panelAddComponent(result, 1, 6, 1);
+		panelAddComponent(button2, 0, 7, 1);
 
 		button1.addActionListener(new button1Listener());
 		button2.addActionListener(new button2Listener());
@@ -145,7 +139,7 @@ public class LehmerPanel extends RNGPanel {
 	protected void displayGraph() {
 		int k = Integer.parseInt(field2.getText());
 		int seed = Integer.parseInt(field1.getText());
-		int[] coefficients = (int[]) combo.getSelectedItem();
+		int[] coefficients = (int[])combo.getSelectedItem();
 		int m = coefficients[0];
 		int a = coefficients[1];
 		int c = coefficients[2];
@@ -153,8 +147,8 @@ public class LehmerPanel extends RNGPanel {
 		lehmer = new LehmerRNG(k, seed, m, a, c);
 		int[] list1 = lehmer.output();
 
-		Frame2 frame2 = new Frame2(list1, m);
-		frame2.go2();
-		frame2.setVisible(true);
+		GraphFrame graph = new GraphFrame(list1, m);
+		graph.activate();
+		graph.setVisible(true);
 	}
 }
