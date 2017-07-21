@@ -12,83 +12,59 @@ public class JavaPanel extends RNGPanel {
 	private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
-	private JLabel result;
+	private JLabel label4;
 
 	private JTextField field1;
 	private JTextField field2;
+	private JTextField field3;
 
-	private JButton button1;
-	private JButton button2;
+	private JButton button;
 
 	public void activate() {
 		label1 = new JLabel("Java's pseudo RNG");
 		label2 = new JLabel("Number of terms: ");
-		label3 = new JLabel("Output: ");
-		result = new JLabel("Result: ");
+		label3 = new JLabel("Pseudo random numbers: ");
+		label4 = new JLabel("Ratio: ");
 
 		field1 = new JTextField(15);
 		field2 = new JTextField(15);
+		field3 = new JTextField(15);
 
-		button1 = new JButton("Test with unit square");
-		button2 = new JButton("Draw a graph");
+		button = new JButton("<html>" + "Generate numbers and \ndraw a graph".replaceAll("\\n", "<br>") + "</html>");
 
 		this.setLayout(new GridBagLayout());
 		panelAddComponent(label1, 0, 0, 1);
 		panelAddComponent(label2, 0, 1, 1);
 		panelAddComponent(field1, 1, 1, 1);
-		panelAddComponent(label3, 0, 2, 1);
-		panelAddComponent(field2, 1, 2, 1);
-		panelAddComponent(button1, 0, 3, 1);
-		panelAddComponent(result, 1, 3, 1);
-		panelAddComponent(button2, 0, 4, 1);
+		panelAddComponent(button, 0, 2, 1);
+		panelAddComponent(label3, 0, 3, 1);
+		panelAddComponent(field2, 1, 3, 1);
+		panelAddComponent(label4, 0, 4, 1);
+		panelAddComponent(field3, 1, 4, 1);
 
-		button1.addActionListener(new button1Listener());
-		button2.addActionListener(new button2Listener());
+		button.addActionListener(new buttonListener());
 	}
 
-	/*
-	 * This inner class implements an ActionListener of a button which displays the
-	 * result of unit-circle test on Java's pseudo RNG.
-	 */
-	class button1Listener implements ActionListener {
+	// Action listener for the button to calculate results and to display a graph
+	class buttonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			try {
-				displayResult();
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "There is an error.", "Error Message", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
-
-	protected void displayResult() {
-		int k = Integer.parseInt(field1.getText());
-		JavaRNG rng = new JavaRNG(k);
-		double[] list2 = rng.output();
-		double ratio = rng.ratio(list2);
-		result.setText("Result: " + 4 * ratio);
-		field2.setText(Arrays.toString(list2));
-	}
-
-	/*
-	 * This inner class implements an ActionListener of a button that creates a new
-	 * window and that displays a graph of Java's pseudo RNG on the window.
-	 */
-	class button2Listener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			try {
-				displayGraph();
+				displayResultsandGraph();
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "There is an error.", "Error Message", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Error", "Error Message", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
-	protected void displayGraph() {
+	protected void displayResultsandGraph() {
 		int k = Integer.parseInt(field1.getText());
 		JavaRNG rng = new JavaRNG(k);
-		double[] list2 = rng.output();
+		double[] list = rng.output();
+		double ratio = rng.ratio(list);
+		field3.setText(Double.toString(4 * ratio));
+		field2.setText(Arrays.toString(list));
 
-		GraphFrame graph = new GraphFrame(list2);
+		GraphFrame graph = new GraphFrame(list);
 		graph.activate();
 		graph.setVisible(true);
 	}

@@ -15,23 +15,20 @@ public class LehmerPanel extends RNGPanel {
 	private JLabel label4;
 	private JLabel label5;
 	private JLabel label6;
-	private JLabel result;
+	private JLabel label7;
 
-	private JButton button1;
-	private JButton button2;
+	private JButton button;
 
 	private JTextField field1;
 	private JTextField field2;
 	private JTextField field3;
+	private JTextField field4;
 
 	private JComboBox<int[]> combo;
 
 	private LehmerRNG lehmer;
 
-	/*
-	 * Array that stores a choice set of three constants in Lehmer's pseudo RNG in
-	 * the order of {m,a,c}
-	 */
+	// Array of parameters {m, a, c} in Lehmer's pseudo RNG
 	private final int[][] parameters = { { 6075, 106, 1283 }, { 7875, 211, 1663 }, { 7875, 421, 1663 },
 			{ 11979, 430, 2513 }, { 6655, 936, 1399 }, { 6075, 1366, 1283 }, { 53125, 171, 11213 },
 			{ 11979, 859, 2531 }, { 29282, 419, 6173 }, { 14406, 967, 3041 }, { 134456, 141, 28411 },
@@ -45,15 +42,15 @@ public class LehmerPanel extends RNGPanel {
 		label3 = new JLabel("{m, a, c}: ");
 		label4 = new JLabel("Seed: ");
 		label5 = new JLabel("Number of terms: ");
-		label6 = new JLabel("Output: ");
-		result = new JLabel("Result: ");
+		label6 = new JLabel("Pseudo random numbers: ");
+		label7 = new JLabel("Ratio: ");
 
-		button1 = new JButton("Test with unit square");
-		button2 = new JButton("Draw a graph");
+		button = new JButton("<html>" + "Generate numbers and \ndraw a graph".replaceAll("\\n", "<br>") + "</html>");
 
 		field1 = new JTextField(15);
 		field2 = new JTextField(15);
 		field3 = new JTextField(15);
+		field4 = new JTextField(15);
 
 		combo = new JComboBox<int[]>(parameters);
 
@@ -83,31 +80,27 @@ public class LehmerPanel extends RNGPanel {
 		panelAddComponent(field1, 1, 3, 1);
 		panelAddComponent(label5, 0, 4, 1);
 		panelAddComponent(field2, 1, 4, 1);
-		panelAddComponent(label6, 0, 5, 1);
-		panelAddComponent(field3, 1, 5, 1);
-		panelAddComponent(button1, 0, 6, 1);
-		panelAddComponent(result, 1, 6, 1);
-		panelAddComponent(button2, 0, 7, 1);
+		panelAddComponent(button, 0, 5, 1);
+		panelAddComponent(label6, 0, 6, 1);
+		panelAddComponent(field3, 1, 6, 1);
+		panelAddComponent(label7, 0, 7, 1);
+		panelAddComponent(field4, 1, 7, 1);
 
-		button1.addActionListener(new button1Listener());
-		button2.addActionListener(new button2Listener());
+		button.addActionListener(new buttonListener());
 	}
 
-	/*
-	 * This inner class implements an ActionListener of a button which displays the
-	 * result of unit-circle test on Lehmer's pseudo RNG.
-	 */
-	class button1Listener implements ActionListener {
+	// Action listener for a button to display results and a graph
+	class buttonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			try {
-				displayResult();
+				displayResultsandGraph();
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "There is an error.", "Error Message", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Error", "Error Message", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
-	protected void displayResult() {
+	protected void displayResultsandGraph() {
 		int k = Integer.parseInt(field2.getText());
 		int seed = Integer.parseInt(field1.getText());
 		int[] coefficients = (int[]) combo.getSelectedItem();
@@ -116,38 +109,12 @@ public class LehmerPanel extends RNGPanel {
 		int c = coefficients[2];
 
 		lehmer = new LehmerRNG(k, seed, m, a, c);
-		int[] list1 = lehmer.output();
-		double Ratio = lehmer.ratio(list1);
-		result.setText("Result: " + 4 * Ratio);
-		field3.setText(Arrays.toString(list1));
-	}
+		int[] list = lehmer.output();
+		double ratio = lehmer.ratio(list);
+		field3.setText(Arrays.toString(list));
+		field4.setText(Double.toString(4 * ratio));
 
-	/*
-	 * This inner class implements an ActionListener of a button that creates a new
-	 * window and that displays a graph of Lehmer's pseudo RNG on the window.
-	 */
-	class button2Listener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			try {
-				displayGraph();
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "There is an error.", "Error Message", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
-
-	protected void displayGraph() {
-		int k = Integer.parseInt(field2.getText());
-		int seed = Integer.parseInt(field1.getText());
-		int[] coefficients = (int[])combo.getSelectedItem();
-		int m = coefficients[0];
-		int a = coefficients[1];
-		int c = coefficients[2];
-
-		lehmer = new LehmerRNG(k, seed, m, a, c);
-		int[] list1 = lehmer.output();
-
-		GraphFrame graph = new GraphFrame(list1, m);
+		GraphFrame graph = new GraphFrame(list, m);
 		graph.activate();
 		graph.setVisible(true);
 	}

@@ -114,7 +114,6 @@ public class GraphPanel extends JPanel {
 		g.drawString("Predecessor", 225 + WIDTH_HORIZONTAL, 600);
 		/* Label ordinate titles. */
 		g.drawString("Follower", 10, 300);
-
 	}
 
 	public void setSampleInt(int[] n) {
@@ -128,5 +127,4 @@ public class GraphPanel extends JPanel {
 	public void setRadius(int r) {
 		radius = r;
 	}
-
 }

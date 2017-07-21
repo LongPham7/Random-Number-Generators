@@ -1,7 +1,9 @@
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 
+/** 
+ * This class creates the main frame that interacts with users. 
+ * */
 public class AppFrame {
 
 	private JFrame frame;
@@ -19,7 +21,7 @@ public class AppFrame {
 		frame.getContentPane().add(BorderLayout.CENTER, panelJava);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500, 500);
+		frame.setSize(430, 500);
 		frame.setVisible(true);
 	}
 }

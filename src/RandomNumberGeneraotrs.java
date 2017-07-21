@@ -1,3 +1,6 @@
+/** 
+ * This is an entry point to the application. 
+ * */
 public class RandomNumberGeneraotrs {
 
 	private AppFrame app = new AppFrame();

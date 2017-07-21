@@ -2,6 +2,9 @@ import javax.swing.*;
 
 import java.awt.*;
 
+/** 
+ * This class corresponds to a view in the MVC architecture. 
+ * */
 public class GraphFrame extends JFrame {
 
 	// Default serial version UID
@@ -23,11 +26,7 @@ public class GraphFrame extends JFrame {
 		radius = 1;
 	}
 
-	/*
-	 * This method creates a window for displaying the graph of Lehmer's pseudo RNG,
-	 * which is created after the user clicks a button. This method then adds
-	 * widgets to the window.
-	 */
+	// Creates GUI components for a frame where a graph is displayed. 
 	public void activate() {
 		GraphPanel graph = new GraphPanel();
 		if (radius == 1) {
