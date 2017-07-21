@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class Panel1 extends Panel {
+public class LehmerPanel extends RNGPanel {
 
 	// Default serial version UID
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class Panel1 extends Panel {
 	private JTextField field2;
 	private JTextField field3;
 
-	private JComboBox combo;
+	private JComboBox<int[]> combo;
 
 	private LehmerRNG lehmer;
 
@@ -33,12 +33,12 @@ public class Panel1 extends Panel {
 	 * Array that stores a choice set of three constants in Lehmer's pseudo RNG in
 	 * the order of {m,a,c}
 	 */
-	private final String[] choiceSet = { "{6075, 106, 1283}", "{7875, 211, 1663}", "{7875, 421, 1663}",
-			"{11979, 430, 2513}", "{6655, 936, 1399}", "{6075, 1366, 1283}", "{53125, 171, 11213}",
-			"{11979, 859, 2531}", "{29282, 419, 6173}", "{14406, 967, 3041}", "{134456, 141, 28411}",
-			"{31104, 625, 6571}", "{14000, 1541, 2957}", "{12960, 1741, 2731}", "{21870, 1291, 4621}",
-			"{139968, 205, 29573}", "{81000, 421, 17117}", "{29282, 1255, 6173}", "{134456, 281, 28411}",
-			"{86436, 1093, 18257}", "{259200, 421, 54773}" };
+	private final int[][] parameters = { { 6075, 106, 1283 }, { 7875, 211, 1663 }, { 7875, 421, 1663 },
+			{ 11979, 430, 2513 }, { 6655, 936, 1399 }, { 6075, 1366, 1283 }, { 53125, 171, 11213 },
+			{ 11979, 859, 2531 }, { 29282, 419, 6173 }, { 14406, 967, 3041 }, { 134456, 141, 28411 },
+			{ 31104, 625, 6571 }, { 14000, 1541, 2957 }, { 12960, 1741, 2731 }, { 21870, 1291, 4621 },
+			{ 139968, 205, 29573 }, { 81000, 421, 17117 }, { 29282, 1255, 6173 }, { 134456, 281, 28411 },
+			{ 86436, 1093, 18257 }, { 259200, 421, 54773 } };
 
 	public void activate() {
 		/* Image of the formula of Lehmer's pseudo RNG */
@@ -60,7 +60,24 @@ public class Panel1 extends Panel {
 		field2 = new JTextField(15);
 		field3 = new JTextField(15);
 
-		combo = new JComboBox<String>(choiceSet);
+		combo = new JComboBox<int[]>(parameters);
+
+		combo.setRenderer(new ListCellRenderer<int[]>() {
+
+			private final JLabel label = new JLabel();
+
+			@Override
+			public Component getListCellRendererComponent(JList<? extends int[]> list, int[] value, int index,
+					boolean isSelected, boolean cellHasFocus) {
+				String[] convertedToString = new String[value.length];
+				for (int i = 0; i != value.length; i++) {
+					convertedToString[i] = Integer.toString(value[i]);
+				}
+				String result = String.join(", ", convertedToString);
+				label.setText("{" + result + "}");
+				return label;
+			}
+		});
 
 		this.setLayout(new GridBagLayout());
 		panelAddComponent(label1, 0, 0, 2);
@@ -99,7 +116,7 @@ public class Panel1 extends Panel {
 	protected void displayResult() {
 		int k = Integer.parseInt(field2.getText());
 		int seed = Integer.parseInt(field1.getText());
-		int[] coefficients = readInput((String) combo.getSelectedItem());
+		int[] coefficients = (int[]) combo.getSelectedItem();
 		int m = coefficients[0];
 		int a = coefficients[1];
 		int c = coefficients[2];
@@ -128,7 +145,7 @@ public class Panel1 extends Panel {
 	protected void displayGraph() {
 		int k = Integer.parseInt(field2.getText());
 		int seed = Integer.parseInt(field1.getText());
-		int[] coefficients = readInput((String) combo.getSelectedItem());
+		int[] coefficients = (int[]) combo.getSelectedItem();
 		int m = coefficients[0];
 		int a = coefficients[1];
 		int c = coefficients[2];
@@ -139,48 +156,5 @@ public class Panel1 extends Panel {
 		Frame2 frame2 = new Frame2(list1, m);
 		frame2.go2();
 		frame2.setVisible(true);
-	}
-
-	/*
-	 * This method extracts three constants in the formula of Lehmer's pseudo RNG
-	 * from a string in the array "choiceSet", and stores the numbers in a new
-	 * array.
-	 * 
-	 * @param n: string to be extracted
-	 * 
-	 * @return array that stores three constants in the formula of Lehmer's pseudo
-	 * RNG
-	 */
-	private int[] readInput(String n) {
-		int[] result = new int[3];
-
-		/* This variable stores the starting index of a number to be extracted. */
-		int start = 1;
-
-		/*
-		 * This variable stores the number of constants that have already been extracted
-		 */
-		int memory = 0;
-
-		/*
-		 * This loop traverses the string of input, and extracts three constants
-		 * required for the Lehmer's pseudo RNG.
-		 */
-		for (int i = 0; i < n.length(); i++) {
-			/* If either ',' or '}' is found, extract the substring. */
-			if (n.charAt(i) == ',' || n.charAt(i) == '}') {
-				result[memory] = Integer.parseInt(n.substring(start, i));
-				memory++;
-
-				/* The next starting index is behind the previous one by two characters */
-				start = i + 2;
-			}
-
-			/* If all three constants are extracted, break the loop. */
-			if (memory == 3) {
-				break;
-			}
-		}
-		return result;
 	}
 }

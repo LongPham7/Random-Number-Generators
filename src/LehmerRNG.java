@@ -22,7 +22,7 @@ public class LehmerRNG implements IntegerRNG {
 		 * This loop calculates elements using the preceding elements based on the
 		 * formula of Lehmer's pseudo RNG.
 		 */
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i != length; i++) {
 			/* The first element is derived from the seed given by the user. */
 			if (i == 0) {
 				result[0] = (a * seed + c) % m;
@@ -54,7 +54,7 @@ public class LehmerRNG implements IntegerRNG {
 		 * This loop traverses the array of input, counting points whose distance is
 		 * less than or equal to the radius.
 		 */
-		for (int i = 0; i < n.length - 1; i++) {
+		for (int i = 0; i != n.length - 1; i++) {
 
 			/*
 			 * If the sum of squares of two consecutive terms is less than or equal to the

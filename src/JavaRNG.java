@@ -19,7 +19,7 @@ public class JavaRNG implements DoubleRNG {
 		 * This loop inserts a random number with a range from 0.0 to 1.0 to each
 		 * element in an array.
 		 */
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i != length; i++) {
 			result[i] = Math.random();
 		}
 		return result;
@@ -42,7 +42,7 @@ public class JavaRNG implements DoubleRNG {
 		 * This loop traverses the array, counting points whose distance is less than or
 		 * equal to the radius
 		 */
-		for (int i = 0; i < n.length - 1; i++) {
+		for (int i = 0; i != n.length - 1; i++) {
 
 			/*
 			 * If the sum of squares of two consecutive terms is less than or equal to the

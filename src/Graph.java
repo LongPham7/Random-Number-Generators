@@ -50,30 +50,30 @@ public class Graph extends JPanel {
 		g.drawLine(WIDTH_HORIZONTAL, 550, WIDTH_HORIZONTAL, 50);
 
 		/* Draw scale bars for abscissa. */
-		for (int i = 1; i < 11; i++) {
+		for (int i = 1; i != 11; i++) {
 			g.drawLine(WIDTH_HORIZONTAL + 50 * i, 550, WIDTH_HORIZONTAL + 50 * i, 555);
 		}
 
 		/* Draw scale bar for ordinate. */
-		for (int i = 1; i < 11; i++) {
+		for (int i = 1; i != 11; i++) {
 			g.drawLine(WIDTH_HORIZONTAL - 5, 550 - 50 * i, WIDTH_HORIZONTAL, 550 - 50 * i);
 		}
 
 		/* If the radius is 1, array sampleDou is used. */
 		if (radius == 1) {
 			/* Label numbers for abscissa. */
-			for (int i = 0; i < 11; i++) {
+			for (int i = 0; i != 11; i++) {
 				String n = Double.toString(0.10 * i).substring(0, 3);
 				g.drawString(n, WIDTH_HORIZONTAL - 5 + 50 * i, 575);
 			}
 			/* Label numbers for ordinate. */
-			for (int i = 0; i < 11; i++) {
+			for (int i = 0; i != 11; i++) {
 				String n = Double.toString(0.1 * i).substring(0, 3);
 				g.drawString(n, WIDTH_HORIZONTAL - 25, 555 - 50 * i);
 			}
 
 			/* Plot points */
-			for (int i = 0; i < sampleDou.length - 1; i++) {
+			for (int i = 0; i != sampleDou.length - 1; i++) {
 				g.setColor(Color.blue);
 				/* Find x-coordinate. */
 				int x = WIDTH_HORIZONTAL + (int) (50 * sampleDou[i] * 10);
@@ -95,7 +95,7 @@ public class Graph extends JPanel {
 			g.drawString(zero, WIDTH_HORIZONTAL - 45, 555);
 
 			/* Plot points */
-			for (int i = 0; i < sampleInt.length - 1; i++) {
+			for (int i = 0; i != sampleInt.length - 1; i++) {
 				g.setColor(Color.blue);
 				/* Find x-coordinate. */
 				int x = WIDTH_HORIZONTAL + (int) (500.0 * sampleInt[i] / radius);

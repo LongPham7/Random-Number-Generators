@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class Panel2 extends Panel {
+public class JavaPanel extends RNGPanel {
 	
 	// Default serial version UID
 	private static final long serialVersionUID = 1L;

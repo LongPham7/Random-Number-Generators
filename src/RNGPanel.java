@@ -2,7 +2,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public abstract class Panel extends JPanel {
+public abstract class RNGPanel extends JPanel {
 	
 	// Default serial version UID
 	private static final long serialVersionUID = 1L;
