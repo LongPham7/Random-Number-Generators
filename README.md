@@ -12,6 +12,6 @@ The formula used by an LCG to generate pseudo random numbers is given by
 
 *N'* = (*a* \* *N* + *c*) mod *m*,
 
-where parameters a, c, and m are chosen by users. The initial value of N, called a seed, must be specified by the users. Then an arbitrarily long sequence of pseudo random numbers can be generated. Note that the numbers generated are bounded above by *m*.
+where parameters a, c, and m are chosen by users. The initial value of N, called a seed, must be specified by the users. Note that the numbers generated are bounded above by *m*.
 
 Java's built-in RNG can be accessed by invoking Math.random(). This generates numbers within the range of [0,1]. 

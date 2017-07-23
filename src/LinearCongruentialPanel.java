@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class LehmerPanel extends RNGPanel {
+public class LinearCongruentialPanel extends RNGPanel {
 
 	// Default serial version UID
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class LehmerPanel extends RNGPanel {
 
 	private JComboBox<int[]> combo;
 
-	private LehmerRNG lehmer;
+	private LinearCongruentialRNG lehmer;
 
 	// Array of parameters {m, a, c} in Lehmer's pseudo RNG
 	private final int[][] parameters = { { 6075, 106, 1283 }, { 7875, 211, 1663 }, { 7875, 421, 1663 },
@@ -108,7 +108,7 @@ public class LehmerPanel extends RNGPanel {
 		int a = coefficients[1];
 		int c = coefficients[2];
 
-		lehmer = new LehmerRNG(k, seed, m, a, c);
+		lehmer = new LinearCongruentialRNG(k, seed, m, a, c);
 		int[] list = lehmer.output();
 		double ratio = lehmer.ratio(list);
 		field3.setText(Arrays.toString(list));

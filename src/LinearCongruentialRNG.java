@@ -1,7 +1,7 @@
 /**
- * This class provides utility functions for a Lehmer's random number generator.
+ * This class provides utility functions for a linear congruential generator.
  */
-public class LehmerRNG implements IntegerRNG {
+public class LinearCongruentialRNG implements IntegerRNG {
 
 	private int length;
 	private int seed;
@@ -9,7 +9,7 @@ public class LehmerRNG implements IntegerRNG {
 	private int a;
 	private int c;
 
-	public LehmerRNG(int length, int seed, int m, int a, int c) {
+	public LinearCongruentialRNG(int length, int seed, int m, int a, int c) {
 		this.length = length;
 		this.seed = seed;
 		this.m = m;
@@ -32,7 +32,7 @@ public class LehmerRNG implements IntegerRNG {
 		return result;
 	}
 
-	// Calculates the estimated area of a quadrant. 
+	// Calculates the estimated area of a quadrant by the Monte Carlo method.
 	public double ratio(int[] n) {
 		int count = 0;
 		double first;
@@ -40,7 +40,6 @@ public class LehmerRNG implements IntegerRNG {
 		for (int i = 0; i != n.length - 1; i++) {
 			first = (double) n[i] / m;
 			second = (double) n[i + 1] / m;
-
 			if (first * first + second * second <= 1) {
 				count++;
 			}

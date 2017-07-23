@@ -12,7 +12,7 @@ public class AppFrame {
 	
 	public void activate() {
 		frame = new JFrame("RNGs and Monte Carlo Test");
-		panelLehmer = new LehmerPanel();
+		panelLehmer = new LinearCongruentialPanel();
 		panelLehmer.activate();
 		panelJava = new JavaPanel();
 		panelJava.activate();
