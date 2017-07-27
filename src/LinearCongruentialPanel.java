@@ -43,7 +43,7 @@ public class LinearCongruentialPanel extends RNGPanel {
 		label4 = new JLabel("Seed: ");
 		label5 = new JLabel("Number of terms: ");
 		label6 = new JLabel("Pseudo random numbers: ");
-		label7 = new JLabel("Ratio: ");
+		label7 = new JLabel("Estimated quadrant area: ");
 
 		button = new JButton("<html>" + "Generate numbers and \ndraw a graph".replaceAll("\\n", "<br>") + "</html>");
 

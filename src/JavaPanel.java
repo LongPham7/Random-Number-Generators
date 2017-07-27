@@ -24,7 +24,7 @@ public class JavaPanel extends RNGPanel {
 		label1 = new JLabel("Java's pseudo RNG");
 		label2 = new JLabel("Number of terms: ");
 		label3 = new JLabel("Pseudo random numbers: ");
-		label4 = new JLabel("Ratio: ");
+		label4 = new JLabel("Estimated quadrant area: ");
 
 		field1 = new JTextField(15);
 		field2 = new JTextField(15);
